@@ -3,7 +3,16 @@ kind: Ingress
 metadata:
   name: demo
   namespace: demo
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+
+    # remark the following line, HTTPS will return "404 page not found"
+    # enable the following line, HTTP will return "404 page not found"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
+  tls:
+  - secretName: demo-tls
+
   rules:
   - host: demo.bicicletaria
     http:
